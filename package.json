@@ -1,0 +1,10 @@
+{
+  "name": "bvnk-diegoblattner",
+  "author": "Diego Blattner <diblattner@gmail.com>",
+  "workspaces": [
+    "ui-kit"
+  ],
+  "scripts": {
+    "storybook": "npm run storybook -w ui-kit"
+  }
+}

@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-body-500: #EBEDF3;
+  --color-primary-100: #00C4f8;
+  --color-primary-500: #3F53DD;
+  --color-primary-700: #2f3ea1;
+  --color-black: #0A1628;
+  --color-line: #E3E8EE;
+  --color-gray: #556877;
+  --color-white-100: #F9F9F9;
+
+  --color-background: var(--color-white);
+  --color-foreground: var(--color-black);
+
+  --font-sans: 'Inter Variable', sans-serif;
+  --text-s1: 14px;
+  --text-s2: 15px;
+  --text-s3: 20px;
+  --text-s4: 32px;
+  --leading-s1: 16px;
+  --leading-s2: 20px;
+  --leading-s3: 22px;
+  --leading-s4: 24px;
+  --leading-s5: 28px;
+  --leading-s6: 40px;
+}
+
+@layer components {
+  /* tp prefix for typography */
+  .tp-title { @apply font-medium text-s3 leading-s5; }
+	.tp-title-xl { @apply font-semibold text-s4 leading-s6; }
+	.tp-title-sm { @apply font-semibold text-s3 leading-s6; }
+	.tp-body { @apply font-normal text-s1 leading-s3; }
+	.tp-body-bolder { @apply font-medium text-s1 leading-s3; }
+	.tp-field-label { @apply font-medium text-s1 leading-s2; }
+	.tp-field-select { @apply font-medium text-s2 leading-s3; }
+	.tp-cta { @apply font-medium text-s2 leading-s4; }
+	.tp-qrcode { @apply font-normal text-s1 leading-s1; }
+
+  .focus-ring {
+    @apply outline-0 ring-offset-2 focus:ring-2 ring-offset-background ring-primary-500/70;
+  }
+}
+
+@layer base {
+  :root {
+    @apply font-sans bg-body-500 sm:p-20 text-foreground;
+    
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-background: var(--color-black);
+      --color-foreground: var(--color-white-100);
+      --color-gray: var(--color-white-100);
+      .focus-ring {
+        @apply ring-primary-100/70!;
+      }
+    }
+  }
+}
