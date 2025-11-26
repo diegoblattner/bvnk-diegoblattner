@@ -1,17 +1,16 @@
-@import "tailwindcss";
 
 @theme {
-  --color-body-500: #EBEDF3;
+  --color-body-500: var(--body-bg);
   --color-primary-100: #00C4f8;
   --color-primary-500: #3F53DD;
   --color-primary-700: #2f3ea1;
   --color-black: #0A1628;
   --color-line: #E3E8EE;
-  --color-gray: #556877;
   --color-white-100: #F9F9F9;
-
-  --color-background: var(--color-white);
-  --color-foreground: var(--color-black);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gray: var(--gray);
 
   --font-sans: 'Inter Variable', sans-serif;
   --text-s1: 14px;
@@ -41,22 +40,36 @@
   .focus-ring {
     @apply outline-0 ring-offset-2 focus:ring-2 ring-offset-background ring-primary-500/70;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .focus-ring {
+      @apply ring-primary-100/70!;
+    }
+  }
 }
 
 @layer base {
   :root {
-    @apply font-sans bg-body-500 sm:p-20 text-foreground;
-    
+    --background: #ffffff;
+    --body-bg: #EBEDF3;
+    --foreground: #0A1628;
+    --gray: #556877;
+    --input-bg: var(--background);
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --color-background: var(--color-black);
-      --color-foreground: var(--color-white-100);
-      --color-gray: var(--color-white-100);
-      .focus-ring {
-        @apply ring-primary-100/70!;
-      }
+      --background: #0a0a0a;
+      --body-bg: #1a222d;
+      --foreground: #ededed;
+      --gray: var(--foreground);
     }
   }
+
+  body {
+    @apply font-sans bg-body-500 sm:p-20 text-foreground antialiased;
+  }
 }
+
+
+

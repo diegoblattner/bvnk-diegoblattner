@@ -18,7 +18,13 @@ export function Panel({
 }: PanelProps) {
 	return (
 		<div
-			className={`${className} ${tp.body} flex flex-col max-w-[460px] rounded-[10px] p-[25px] gap-[25px] bg-background text-foreground`}
+			className={`
+				${className} ${tp.body}
+				bg-background text-foreground
+				mx-auto sm:max-w-[460px]
+				h-dvh sm:h-auto
+				flex flex-col
+				sm:rounded-[10px] p-[25px] gap-[25px]`}
 		>
 			{heading || subheading ? (
 				<div>

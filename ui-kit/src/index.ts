@@ -1,7 +1,9 @@
 import "@fontsource-variable/inter";
-import "./index.css";
 
-export { Cta } from "./components/cta";
-export { Panel } from "./components/panel";
-export { Price } from "./components/price";
-export { Select } from "./components/select";
+export * from "./components/cta";
+export * from "./components/details";
+export * from "./components/panel";
+export * from "./components/price";
+export * from "./components/select";
+export * from "./components/timer";
+export * from "./typography";
