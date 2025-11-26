@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Cta } from "../cta";
 import { Details } from "../details";
 import { Price } from "../price";
 import { Select } from "../select";
@@ -44,6 +45,7 @@ export const Primary: Story = {
 						value={<Timer id="1" ms={60000} />}
 					/>
 				</Details>
+				<Cta type="button">Confirm</Cta>
 			</>
 		),
 	},

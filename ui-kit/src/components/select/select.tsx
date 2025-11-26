@@ -35,10 +35,15 @@ function Select({ id, label, name, value, onChange, children }: SelectProps) {
 type OptionProps = Readonly<{
 	value: string;
 	children: ReactNode;
+	disabled?: boolean;
 }>;
 
-function Option({ value, children }: OptionProps) {
-	return <option value={value}>{children}</option>;
+function Option({ value, children, disabled }: OptionProps) {
+	return (
+		<option value={value} disabled={disabled}>
+			{children}
+		</option>
+	);
 }
 
 Select.Option = Option;
