@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Cta } from "../cta";
 import { Details } from "../details";
+import { ExclamationIcon } from "../icons";
 import { Price } from "../price";
 import { Select } from "../select";
 import { Timer } from "../timer";
@@ -48,5 +49,18 @@ export const Primary: Story = {
 				<Cta type="button">Confirm</Cta>
 			</>
 		),
+	},
+};
+
+export const WithIcon: Story = {
+	args: {
+		className: "sm:py-[68px] sm:px-[90px]",
+		preheading: (
+			<div className="mx-auto">
+				<ExclamationIcon />
+			</div>
+		),
+		heading: "Payment details expired",
+		description: "The payment details for your transaction have expired.",
 	},
 };
