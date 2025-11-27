@@ -1,3 +1,4 @@
+"use client";
 import { formatTime } from "../../lib/format-time";
 import { useTimer } from "./use-timer";
 

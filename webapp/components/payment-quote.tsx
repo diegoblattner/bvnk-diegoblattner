@@ -21,13 +21,13 @@ export default function PaymentQuote({
 			subheading={
 				<Price
 					value={displayCurrency.amount}
-					currency={displayCurrency.currency!}
+					currency={displayCurrency.currency ?? ""}
 				/>
 			}
 			description={
 				<div>
 					For reference number:{" "}
-					<span className={tp.bodyBolder}>{reference}</span>
+					<span className={`${tp.bodyBolder} text-black`}>{reference}</span>
 				</div>
 			}
 		>
