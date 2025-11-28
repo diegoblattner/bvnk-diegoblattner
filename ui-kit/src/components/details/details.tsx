@@ -21,12 +21,12 @@ type RowProps = Readonly<{
 
 function Row({ label, value, children }: RowProps) {
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col">
 			<div className="flex justify-between gap-4 py-3">
 				<div className={`${tp.body} text-gray`}>{label}</div>
 				<div className={tp.bodyBolder}>{value}</div>
 			</div>
-			{children && <div className="py-3">{children}</div>}
+			{children && <div className="pb-3">{children}</div>}
 		</div>
 	);
 }
