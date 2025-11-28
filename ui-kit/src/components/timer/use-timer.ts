@@ -6,7 +6,7 @@ export function useTimer(id: string, ms: number, onTimeEllapsed?: () => void) {
 	// biome-ignore lint/correctness/useExhaustiveDependencies: "id" is used to force the timer to reset
 	useEffect(() => {
 		// eslint-disable-next-line react-hooks/set-state-in-effect
-		setTime(ms); // resets the timer
+		setTime(Math.max(ms, 0)); // resets the timer
 
 		const interval = setInterval(() => {
 			setTime((prev) => {

@@ -13,7 +13,9 @@ export function QRCode({ value }: QrCodeProps) {
 				value={value}
 				title={`QR code for: ${value}`}
 			/>
-			<div className={`${tp.qrcode} text-gray text-center`}>{value}</div>
+			<div className={`${tp.qrcode} text-gray text-center break-all`}>
+				{value}
+			</div>
 		</div>
 	);
 }

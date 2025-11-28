@@ -24,7 +24,7 @@ export function Panel({
 				${className} ${tp.body}
 				bg-background text-foreground
 				mx-auto sm:max-w-[460px]
-				h-dvh sm:h-auto
+				h-dvh overflow-y-auto sm:h-auto
 				flex flex-col
 				sm:rounded-[10px] p-[25px] gap-[25px]`}
 		>

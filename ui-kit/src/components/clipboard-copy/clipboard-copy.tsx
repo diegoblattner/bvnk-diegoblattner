@@ -1,5 +1,5 @@
 "use client";
-import { type ReactNode, Suspense, use, useState } from "react";
+import { type ReactNode, Suspense, use, useEffect, useState } from "react";
 
 type ClipboardCopyProps = Readonly<{
 	children: ReactNode;
@@ -23,7 +23,7 @@ function Feedback({
 			<div
 				className={`
           tooltip absolute top-0 -start-1/2 -translate-y-full
-        bg-black text-white rounded appearance-none px-2 py-1
+        	bg-black text-white rounded px-2 py-1
           cursor-default
         `}
 			>
@@ -37,19 +37,28 @@ const getKey = () => Date.now();
 
 export function ClipboardCopy({ children, value }: ClipboardCopyProps) {
 	const [copy, setCopy] = useState<Promise<void>[]>([]);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: copy is needed in deps
+	useEffect(() => {
+		const timeout = setTimeout(() => setCopy([]), 3000);
+		return () => clearTimeout(timeout);
+	}, [copy]);
+
 	return (
 		<div className="flex gap-3">
 			<div title={value}>{children}</div>
-			<button
-				type="button"
-				className="relative text-primary-500 hover:text-primary-700 clickable focus-ring transition-scale rounded"
-				onClick={() => setCopy([setClipboard(value)])}
-			>
-				Copy
+			<div className="relative">
+				<button
+					type="button"
+					className="text-primary-500 hover:text-primary-700 clickable focus-ring transition-scale rounded"
+					onClick={() => setCopy([setClipboard(value)])}
+				>
+					Copy
+				</button>
 				{copy.map((p) => (
 					<Feedback key={getKey()} promise={p} />
 				))}
-			</button>
+			</div>
 		</div>
 	);
 }

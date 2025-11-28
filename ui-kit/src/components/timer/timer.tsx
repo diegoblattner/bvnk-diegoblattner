@@ -15,7 +15,10 @@ export function Timer({ id, ms, onTimeEllapsed }: TimerProps) {
 	const time = useTimer(id, ms, onTimeEllapsed);
 
 	return (
-		<div className="text-nowrap whitespace-nowrap tabular-nums">
+		<div
+			className="text-nowrap whitespace-nowrap tabular-nums"
+			suppressHydrationWarning
+		>
 			{formatTime(time)}
 		</div>
 	);
