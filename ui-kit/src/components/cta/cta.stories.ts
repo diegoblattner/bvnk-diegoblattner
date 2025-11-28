@@ -26,5 +26,6 @@ export const Primary: Story = {
 	args: {
 		children: "Click me!",
 		type: "button",
+		disabled: false,
 	},
 };
