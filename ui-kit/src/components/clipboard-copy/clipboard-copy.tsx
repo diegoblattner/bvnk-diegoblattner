@@ -1,3 +1,4 @@
+"use client";
 import { type ReactNode, Suspense, use, useState } from "react";
 
 type ClipboardCopyProps = Readonly<{
@@ -18,7 +19,7 @@ function Feedback({
 	if (!promise) return undefined;
 	use(promise);
 	return (
-		<Suspense fallback="">
+		<Suspense>
 			<div
 				className={`
           tooltip absolute top-0 -start-1/2 -translate-y-full
@@ -41,7 +42,7 @@ export function ClipboardCopy({ children, value }: ClipboardCopyProps) {
 			<div title={value}>{children}</div>
 			<button
 				type="button"
-				className="text-primary-500 hover:text-primary-700 cursor-pointer relative"
+				className="relative text-primary-500 hover:text-primary-700 clickable focus-ring transition-scale rounded"
 				onClick={() => setCopy([setClipboard(value)])}
 			>
 				Copy

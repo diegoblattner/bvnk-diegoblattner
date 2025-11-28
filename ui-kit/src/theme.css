@@ -38,7 +38,12 @@
 	.tp-qrcode { @apply font-normal text-s1 leading-s1; }
 
   .focus-ring {
-    @apply outline-0 ring-offset-2 focus:ring-2 ring-offset-background ring-primary-500/70;
+    @apply outline-0 ring-offset-2 focus-visible:ring-2 ring-offset-background ring-primary-500/70;
+  }
+
+  .clickable {
+    @apply cursor-pointer scale-[99%] hover:scale-100 active:scale-[98%]
+      disabled:cursor-default disabled:hover:scale-[99%];
   }
 
   .tooltip {
@@ -50,22 +55,22 @@
   @keyframes slideinout {
     0% {
       opacity: 0;
-      scale: 1 0.75;
+      scale: 0.75;
       translate: 0 -60%;
     }
     5% {
       opacity: 1;
-      scale: 1 1;
+      scale: 1;
       translate: 0 -100%;
     }
     95% {
       opacity: 1;
-      scale: 1 1;
+      scale: 1;
       translate: 0 -100%;
     }
     100% {
       opacity: 0;
-      scale: 1 0.75;
+      scale: 0.75;
       translate: 0 -60%;
     }
   }
