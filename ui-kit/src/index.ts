@@ -1,5 +1,6 @@
 import "@fontsource-variable/inter";
 
+export * from "./components/clipboard-copy";
 export * from "./components/cta";
 export * from "./components/details";
 export * from "./components/icons";
