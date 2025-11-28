@@ -4,6 +4,7 @@ import { Cta, Panel, Price, Select, tp } from "ui-kit";
 import { currencyOptions } from "@/app/constants";
 import type { PayInQuote } from "@/types";
 import { QuoteDetails } from "./quote-details";
+import { useAcceptQuote } from "./use-accept-quote";
 import { useUpdateQuote } from "./use-update-quote";
 
 export default function PaymentQuote({
@@ -13,7 +14,9 @@ export default function PaymentQuote({
 	displayCurrency,
 }: Readonly<PayInQuote>) {
 	const [currency, setCurrency] = useState("");
-	const { isFetching, data } = useUpdateQuote(uuid, currency);
+	const update = useUpdateQuote(uuid, currency);
+	const accept = useAcceptQuote(uuid);
+	const ctaDisabled = update.isFetching || accept.isFetching || !update.data;
 
 	return (
 		<Panel
@@ -27,10 +30,13 @@ export default function PaymentQuote({
 			description={
 				<div>
 					For reference number:{" "}
-					<span className={`${tp.bodyBolder} text-black`}>{reference}</span>
+					<span className={`${tp.bodyBolder} text-foreground`}>
+						{reference}
+					</span>
 				</div>
 			}
 		>
+			{/** biome-ignore lint/correctness/useUniqueElementIds: unique id */}
 			<Select
 				id="paywith"
 				name="paywith"
@@ -49,8 +55,10 @@ export default function PaymentQuote({
 			</Select>
 			{currency !== "" && (
 				<>
-					<QuoteDetails isFetching={isFetching} newQuote={data} />
-					<Cta type="button">Confirm</Cta>
+					<QuoteDetails isFetching={update.isFetching} newQuote={update.data} />
+					<Cta type="button" disabled={ctaDisabled} onClick={accept.accept}>
+						Confirm
+					</Cta>
 				</>
 			)}
 		</Panel>

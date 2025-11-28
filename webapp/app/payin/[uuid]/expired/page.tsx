@@ -1,6 +1,8 @@
 import { ExclamationIcon, Panel } from "ui-kit";
+import { getPayInQuoteForRoute, type PageProps } from "@/app/common";
 
-export default function ExpiredPage() {
+export default async function ExpiredPage(pageProps: PageProps) {
+	await getPayInQuoteForRoute("expired", pageProps);
 	return (
 		<Panel
 			className="sm:py-[68px] sm:px-[90px]"

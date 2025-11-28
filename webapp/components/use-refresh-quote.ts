@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import type { PayInQuote } from "@/types";
+import { updatePayQuote } from "@/apis/pay";
+import type { ApiResult, PayInQuote } from "@/types";
 
 /**
  * sage gap to refresh the quote a bit before its expiry time,
  * allowing slower connections to succed more often in refreshing the quote automatically
  */
-const timerSafeGap = 1000;
+const timerSafeGap = 500;
 export function getExpireTime(quote: PayInQuote | undefined) {
 	return Math.max(
 		(quote?.acceptanceExpiryDate ?? 0) - Date.now() - timerSafeGap,
@@ -13,19 +13,30 @@ export function getExpireTime(quote: PayInQuote | undefined) {
 	);
 }
 
-export function useRefreshQuote(quote: PayInQuote | undefined) {
-	const [expired, setExpired] = useState(0);
+type ScheduleUpdateQuoteargs = {
+	quote: PayInQuote | undefined;
+	uuid: string;
+	currency: string;
+	onFetchStarted: () => void;
+	onQuoteFetched: (newQuote: ApiResult<PayInQuote>) => void;
+	abort: AbortController;
+};
 
-	useEffect(() => {
-		if (quote) {
-			const expireTime = getExpireTime(quote);
-			if (expireTime <= 0) return;
-			const timeout = setTimeout(() => {
-				setExpired(Date.now()); // any value, just to trigger an update
-			}, expireTime);
-			return () => clearTimeout(timeout);
-		}
-	}, [quote]);
+export function scheduleUpdateQuote({
+	quote,
+	uuid,
+	currency,
+	onFetchStarted,
+	onQuoteFetched,
+	abort,
+}: ScheduleUpdateQuoteargs) {
+	if (!uuid || !currency) return;
 
-	return expired;
+	const expireTime = getExpireTime(quote);
+	const timeout = setTimeout(() => {
+		onFetchStarted();
+		updatePayQuote(uuid, currency, "crypto", abort.signal).then(onQuoteFetched);
+	}, expireTime);
+	abort.signal.addEventListener("abort", () => clearTimeout(timeout));
+	return () => clearTimeout(timeout);
 }

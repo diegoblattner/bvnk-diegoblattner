@@ -29,7 +29,8 @@ export async function getPayInQuote(uuid: string, mock?: boolean) {
 export async function updatePayQuote(
 	uuid: string,
 	currency: string,
-	payInMethod = "crypto",
+	payInMethod: "crypto",
+	signal: AbortSignal,
 ) {
 	return await fetchData<PayInQuote>(
 		`https://api.sandbox.bvnk.com/api/v1/pay/${uuid}/update/summary`,
@@ -42,6 +43,18 @@ export async function updatePayQuote(
 				currency,
 				payInMethod,
 			}),
+			signal,
 		},
 	);
+}
+
+export async function acceptPayQuote(uuid: string) {
+	return await fetchData<{
+		successUrl: string;
+	}>(`https://api.sandbox.bvnk.com/api/v1/pay/${uuid}/accept/summary`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 }
