@@ -3,6 +3,12 @@ import { redirect } from "next/navigation";
 import { acceptPayQuote, updatePayQuote } from "@/apis/pay";
 import type { ApiResult, PayInQuote } from "@/types";
 
+function getInvalidParams(): ApiResult<PayInQuote> {
+	return {
+		error: { requestId: "invalid params", message: "invalid params" },
+	};
+}
+
 export async function updateQuoteAction(
 	_: ApiResult<PayInQuote>,
 	formData: FormData,
@@ -10,7 +16,7 @@ export async function updateQuoteAction(
 	const uuid = formData.get("uuid") as string;
 	const currency = formData.get("currency") as string;
 
-	if (!uuid || !currency) return {};
+	if (!uuid || !currency) return getInvalidParams();
 
 	const result = await updatePayQuote(uuid, currency, "crypto");
 	// quote expired
@@ -26,9 +32,10 @@ export async function acceptQuoteAction(
 	formData: FormData,
 ) {
 	const uuid = formData.get("uuid") as string;
+	if (!uuid) return getInvalidParams();
 
 	const result = await acceptPayQuote(uuid);
-	if (result) {
+	if (!result.error) {
 		redirect(`/payin/${uuid}/confirm`);
 	}
 
