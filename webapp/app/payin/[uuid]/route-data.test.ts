@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { getPayInQuote } from "@/apis/pay";
 import { acceptedQuote, expiredQuote, pendingQuote } from "@/mocks/pay-quote";
-import { getPayInQuoteForRoute, type PageProps } from "./common";
+import { getPayInQuoteForRoute, type PageProps } from "./route-data";
 
 jest.mock("next/navigation");
 jest.mock("@/apis/pay");
