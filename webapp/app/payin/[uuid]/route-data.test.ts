@@ -19,7 +19,7 @@ const callMethod = async (
 	pageProps: PageProps,
 	assertions: {
 		get: (result: unknown) => void;
-		confirmed: (result: unknown) => void;
+		confirm: (result: unknown) => void;
 		expired: (result: unknown) => void;
 	},
 ) => {
@@ -47,7 +47,7 @@ test("Routing - EXPIRED status", async () => {
 			expect(redirect).toHaveBeenCalledWith(`/payin/${uuid}/expired`);
 			mockedFn(redirect).mockClear();
 		},
-		confirmed: () => {
+		confirm: () => {
 			expect(redirect).toHaveBeenCalledWith(`/payin/${uuid}/expired`);
 			mockedFn(redirect).mockClear();
 		},
@@ -63,7 +63,7 @@ test("Routing - PENDING status", async () => {
 		get: (result) => {
 			expect(result).toEqual(pendingQuote);
 		},
-		confirmed: () => {
+		confirm: () => {
 			expect(redirect).toHaveBeenCalledWith(`/payin/${uuid}`);
 			mockedFn(redirect).mockClear();
 		},
@@ -81,7 +81,7 @@ test("Routing - ACCEPTED status", async () => {
 			expect(redirect).toHaveBeenCalledWith(`/payin/${uuid}/confirm`);
 			mockedFn(redirect).mockClear();
 		},
-		confirmed: (result) => {
+		confirm: (result) => {
 			expect(result).toEqual(acceptedQuote);
 		},
 		expired: () => {

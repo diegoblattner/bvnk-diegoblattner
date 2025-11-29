@@ -2,7 +2,7 @@
 import { notFound, redirect } from "next/navigation";
 import { getPayInQuote } from "@/apis/pay";
 
-type Route = "get" | "confirmed" | "expired";
+type Route = "get" | "confirm" | "expired";
 
 export type PageProps = {
 	params: Promise<{ uuid: string }>;
@@ -36,7 +36,7 @@ export async function getPayInQuoteForRoute(
 	if (
 		data.status === "PENDING" &&
 		data.quoteStatus === "ACCEPTED" &&
-		currentRoute !== "confirmed"
+		currentRoute !== "confirm"
 	) {
 		return redirect(`/payin/${uuid}/confirm`);
 	}
