@@ -1,6 +1,6 @@
 import { Details, Timer } from "ui-kit";
 import type { PayInQuote } from "@/types";
-import { getExpireTime } from "./use-refresh-quote";
+import { getExpireTime } from "./register-update-quote";
 
 type QuoteDetailsProps = Readonly<{
 	newQuote: PayInQuote | undefined;

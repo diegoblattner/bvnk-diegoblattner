@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ApiResult, PayInQuote } from "@/types";
-import { scheduleUpdateQuote } from "./use-refresh-quote";
+import { registerUpdateQuote } from "./register-update-quote";
 
 export function useUpdateQuote(uuid: string, currency: string) {
 	const [{ data }, setNewQuote] = useState<ApiResult<PayInQuote>>({});
@@ -8,8 +8,8 @@ export function useUpdateQuote(uuid: string, currency: string) {
 
 	useEffect(() => {
 		const controller = new AbortController();
-		scheduleUpdateQuote({
-			quote: data,
+
+		registerUpdateQuote({
 			uuid,
 			currency,
 			abort: controller,
@@ -29,7 +29,7 @@ export function useUpdateQuote(uuid: string, currency: string) {
 		return () => {
 			controller.abort();
 		};
-	}, [data, uuid, currency]);
+	}, [uuid, currency]);
 
 	return { isFetching, data };
 }
