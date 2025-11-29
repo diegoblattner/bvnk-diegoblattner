@@ -15,6 +15,7 @@ const config: Config = {
 	moduleNameMapper: {
 		"^@/(.*)$": "<rootDir>/$1",
 	},
+	clearMocks: true,
 	setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
 	coverageProvider: "v8",
 	testEnvironment: "jsdom",
