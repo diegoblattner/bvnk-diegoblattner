@@ -5,7 +5,7 @@ import { currencyOptions } from "@/app/constants";
 import type { PayInQuote } from "@/types";
 import { QuoteDetails } from "./quote-details";
 import { useAcceptQuote } from "./use-accept-quote";
-import { useUpdateQuote } from "./use-update-quote";
+import { useRefreshQuoteOnExpire, useUpdateQuote } from "./use-update-quote";
 
 export default function PaymentQuote({
 	uuid,
@@ -14,9 +14,11 @@ export default function PaymentQuote({
 	displayCurrency,
 }: Readonly<PayInQuote>) {
 	const [currency, setCurrency] = useState("");
-	const update = useUpdateQuote(uuid, currency);
-	const accept = useAcceptQuote(uuid);
-	const ctaDisabled = update.isFetching || accept.isFetching || !update.data;
+	const [quote, updateAction, updateIsPending] = useUpdateQuote(uuid, currency);
+	useRefreshQuoteOnExpire(quote, uuid, currency, updateAction);
+
+	const [, acceptAction, acceptIsPending] = useAcceptQuote(uuid);
+	const ctaDisabled = updateIsPending || acceptIsPending || !quote.data;
 
 	return (
 		<Panel
@@ -55,8 +57,8 @@ export default function PaymentQuote({
 			</Select>
 			{currency !== "" && (
 				<>
-					<QuoteDetails isFetching={update.isFetching} newQuote={update.data} />
-					<Cta type="button" disabled={ctaDisabled} onClick={accept.accept}>
+					<QuoteDetails isFetching={updateIsPending} newQuote={quote.data} />
+					<Cta type="button" disabled={ctaDisabled} onClick={acceptAction}>
 						Confirm
 					</Cta>
 				</>

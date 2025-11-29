@@ -1,6 +1,6 @@
 import { Details, Timer } from "ui-kit";
 import type { PayInQuote } from "@/types";
-import { getExpireTime } from "./register-update-quote";
+import { getExpiryTime } from "./use-update-quote";
 
 type QuoteDetailsProps = Readonly<{
 	newQuote: PayInQuote | undefined;
@@ -32,7 +32,7 @@ export function QuoteDetails({ newQuote, isFetching }: QuoteDetailsProps) {
 						{isFetching && !newQuote?.paidCurrency ? (
 							"Loading..."
 						) : (
-							<Timer id={newQuote?.uuid ?? ""} ms={getExpireTime(newQuote)} />
+							<Timer id={newQuote?.uuid ?? ""} ms={getExpiryTime(newQuote)} />
 						)}
 					</div>
 				}

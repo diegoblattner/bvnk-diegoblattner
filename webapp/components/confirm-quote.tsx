@@ -12,7 +12,7 @@ export default function ConfirmQuote({
 	return (
 		<Panel
 			heading={`Pay with ${paidCurrency.currency}`}
-			description="To complete this payment send the amount due to the BTC address provided below."
+			description={`To complete this payment send the amount due to the ${paidCurrency.currency} address provided below.`}
 		>
 			<Details>
 				<Details.Row

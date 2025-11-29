@@ -1,29 +1,16 @@
-import { useCallback, useState } from "react";
-import { acceptPayQuote } from "@/apis/pay";
+import { startTransition, useActionState, useCallback } from "react";
+import { acceptQuoteAction } from "./actions";
 
 export function useAcceptQuote(uuid: string) {
-	const [isFetching, setIsFetching] = useState(false);
-	const [error, setError] = useState<string | undefined>(undefined);
+	const [data, action, isPending] = useActionState(acceptQuoteAction, {});
 
-	const accept = useCallback(() => {
-		setIsFetching(true);
-		acceptPayQuote(uuid)
-			.then((res) => {
-				if (res.data) {
-					globalThis.location.href = `/payin/${uuid}/confirm`;
-				} else {
-					// handle error...
-					setError("Failed to accept quote");
-				}
-			})
-			.finally(() => {
-				setIsFetching(false);
-			});
-	}, [uuid]);
+	const acceptFn = useCallback(() => {
+		const formData = new FormData();
+		formData.append("uuid", uuid);
+		startTransition(() => {
+			action(formData);
+		});
+	}, [action, uuid]);
 
-	return {
-		isFetching,
-		accept,
-		error,
-	};
+	return [data, acceptFn, isPending] as const;
 }

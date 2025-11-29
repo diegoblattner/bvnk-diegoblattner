@@ -1,3 +1,4 @@
+"use server";
 import type { PayInQuote } from "@/types";
 import { fetchData } from "./fetch-data";
 import { getHawkAuthorization } from "./hawk-header";
@@ -30,7 +31,7 @@ export async function updatePayQuote(
 	uuid: string,
 	currency: string,
 	payInMethod: "crypto",
-	signal: AbortSignal,
+	signal?: AbortSignal,
 ) {
 	return await fetchData<PayInQuote>(
 		`https://api.sandbox.bvnk.com/api/v1/pay/${uuid}/update/summary`,
