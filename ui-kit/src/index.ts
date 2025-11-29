@@ -3,6 +3,7 @@ import "@fontsource-variable/inter";
 export * from "./components/clipboard-copy";
 export * from "./components/cta";
 export * from "./components/details";
+export * from "./components/error-panel";
 export * from "./components/icons";
 export * from "./components/panel";
 export * from "./components/price";
