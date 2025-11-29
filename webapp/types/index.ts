@@ -30,7 +30,7 @@ export type PayInQuote = {
 	expiryDate: number;
 	quoteExpiryDate: number | null;
 	acceptanceExpiryDate: number | null;
-	quoteStatus: "TEMPLATE" | "ACCEPTED";
+	quoteStatus: "PENDING" | "TEMPLATE" | "ACCEPTED";
 	reference: string;
 	type: string;
 	subType: string;
@@ -42,11 +42,19 @@ export type PayInQuote = {
 	feeCurrency: CurrencyAmount | null;
 	networkFeeCurrency: CurrencyAmount | null;
 
-	displayRate: number | null;
-	exchangeRate: number | null;
+	displayRate: {
+		base: string;
+		counter: string;
+		rate: number;
+	} | null;
+	exchangeRate: {
+		base: string;
+		counter: string;
+		rate: number;
+	} | null;
 	address: {
 		address: string;
-		tag: string;
+		tag: string | null;
 		protocol: string;
 		network: string;
 		uri: string;
@@ -70,5 +78,5 @@ export type PayInQuote = {
 
 	networkFeeRates?: unknown[]; // replace if you have a defined type
 	walletId: string;
-	metadata: Record<string, unknown>;
+	metadata?: Record<string, unknown>;
 };
