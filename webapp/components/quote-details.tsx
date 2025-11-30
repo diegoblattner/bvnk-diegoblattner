@@ -1,4 +1,4 @@
-import { Details, Timer } from "ui-kit";
+import { Details, Skeleton, Timer } from "ui-kit";
 import type { PayInQuote } from "@/types";
 import { getExpiryTime } from "./use-update-quote";
 
@@ -13,9 +13,15 @@ export function QuoteDetails({ newQuote, isFetching }: QuoteDetailsProps) {
 			<Details.Row
 				label="Amount due"
 				value={
-					<div className={isFetching ? "text-gray animate-pulse" : undefined}>
+					<div
+						className={
+							isFetching
+								? "text-gray animate-pulse [animation-duration:1s]"
+								: undefined
+						}
+					>
 						{isFetching && !newQuote?.paidCurrency ? (
-							"Loading..."
+							<Skeleton className="w-[12ch]" />
 						) : (
 							<>
 								{newQuote?.paidCurrency?.amount ?? ""}{" "}
@@ -28,9 +34,15 @@ export function QuoteDetails({ newQuote, isFetching }: QuoteDetailsProps) {
 			<Details.Row
 				label="Quoted price expires in"
 				value={
-					<div className={isFetching ? "text-gray animate-pulse" : undefined}>
+					<div
+						className={
+							isFetching
+								? "text-gray animate-pulse [animation-duration:1s]"
+								: undefined
+						}
+					>
 						{isFetching && !newQuote?.paidCurrency ? (
-							"Loading..."
+							<Skeleton className="w-[12ch]" />
 						) : (
 							<Timer id={newQuote?.uuid ?? ""} ms={getExpiryTime(newQuote)} />
 						)}
