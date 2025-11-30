@@ -18,7 +18,7 @@ export default function ConfirmQuote({
 				<Details.Row
 					label="Amount due"
 					value={
-						<ClipboardCopy value={getDisplayAmount(paidCurrency)}>
+						<ClipboardCopy value={paidCurrency.amount.toString()}>
 							{getDisplayAmount(paidCurrency)}
 						</ClipboardCopy>
 					}

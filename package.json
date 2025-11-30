@@ -3,10 +3,12 @@
   "author": "Diego Blattner <diblattner@gmail.com>",
   "workspaces": [
     "ui-kit",
-    "webapp"
+    "webapp",
+    "e2e"
   ],
   "scripts": {
     "dev": "npm run dev -w webapp",
+    "e2e": "npm run e2e -w e2e",
     "storybook": "npm run storybook -w ui-kit"
   }
 }

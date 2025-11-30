@@ -7,10 +7,7 @@ type ClipboardCopyProps = Readonly<{
 }>;
 
 async function setClipboard(text: string) {
-	const clipboardItem = new ClipboardItem({
-		"text/plain": text,
-	});
-	return await navigator.clipboard.write([clipboardItem]);
+	return await navigator.clipboard.writeText(text);
 }
 
 function Feedback({
