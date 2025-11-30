@@ -1,11 +1,12 @@
 import ReactQRCode from "react-qr-code";
 import { tp } from "../../typography";
+import { Skeleton } from "../skeleton";
 
 type QrCodeProps = Readonly<{
 	value: string;
 }>;
 
-export function QRCode({ value }: QrCodeProps) {
+function QRCode({ value }: QrCodeProps) {
 	return (
 		<div className="flex flex-col gap-3">
 			<ReactQRCode
@@ -19,3 +20,15 @@ export function QRCode({ value }: QrCodeProps) {
 		</div>
 	);
 }
+
+function QRCodeSkeleton() {
+	return (
+		<div className="flex flex-col gap-3 items-center">
+			<Skeleton className="w-[256px] h-[256px]" scaleClx="" />
+			<Skeleton className={`${tp.qrcode} w-[80%]`} />
+		</div>
+	);
+}
+
+QRCode.Skeleton = QRCodeSkeleton;
+export { QRCode };

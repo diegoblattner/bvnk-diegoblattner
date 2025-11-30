@@ -9,5 +9,6 @@ export * from "./components/panel";
 export * from "./components/price";
 export * from "./components/qr-code";
 export * from "./components/select";
+export * from "./components/skeleton";
 export * from "./components/timer";
 export * from "./typography";

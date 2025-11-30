@@ -35,17 +35,30 @@ export const Primary: Story = {
 		(Story, { args }) => {
 			const [value, setValue] = useState(args.value);
 			return (
-				<Story
-					args={{
-						...args,
-						value,
-						onChange: (v) => {
-							args.onChange(v);
-							setValue(v);
-						},
-					}}
-				/>
+				<div className="w-[30ch]">
+					<Story
+						args={{
+							...args,
+							value,
+							onChange: (v) => {
+								args.onChange(v);
+								setValue(v);
+							},
+						}}
+					/>
+				</div>
 			);
 		},
 	],
+};
+
+export const Skeleton: Story = {
+	args: Primary.args,
+	render() {
+		return (
+			<div className="w-[30ch]">
+				<Select.Skeleton />
+			</div>
+		);
+	},
 };

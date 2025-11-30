@@ -18,3 +18,10 @@ export const Primary: Story = {
 		value: "Hello, world!",
 	},
 };
+
+export const Skeleton: Story = {
+	args: Primary.args,
+	render() {
+		return <QRCode.Skeleton />;
+	},
+};

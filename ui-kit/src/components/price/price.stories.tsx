@@ -20,3 +20,10 @@ export const Primary: Story = {
 		currency: "EUR",
 	},
 };
+
+export const Skeleton: Story = {
+	args: Primary.args,
+	render() {
+		return <Price.Skeleton />;
+	},
+};

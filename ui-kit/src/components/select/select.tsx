@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { tp } from "../../typography";
+import { Skeleton } from "../skeleton/skeleton";
 
 type SelectProps = Readonly<{
 	children: ReactNode;
@@ -46,5 +47,15 @@ function Option({ value, children, disabled }: OptionProps) {
 	);
 }
 
+function SelectSkeleton() {
+	return (
+		<div className="flex flex-col gap-1">
+			<Skeleton as="label" className={`${tp.fieldLabel} w-[15ch]`} />
+			<Skeleton as="select" className="h-14 w-full" scaleClx="" />
+		</div>
+	);
+}
+
 Select.Option = Option;
+Select.Skeleton = SelectSkeleton;
 export { Select };
