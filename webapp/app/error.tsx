@@ -2,7 +2,6 @@
 import { ErrorPanel } from "ui-kit";
 
 export default function ErrorPage({
-	error,
 	reset,
 }: Readonly<{
 	error: Error & { digest?: string };
