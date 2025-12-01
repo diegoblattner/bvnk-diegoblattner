@@ -1,7 +1,7 @@
-"use client";
-import { ClipboardCopy, Details, Panel, QRCode, Timer } from "ui-kit";
-import { formatWalletAddress, getCountdown, getDisplayAmount } from "@/lib";
+import { ClipboardCopy, Details, Panel, QRCode } from "ui-kit";
+import { formatWalletAddress, getDisplayAmount } from "@/lib";
 import type { PayInQuote } from "@/types";
+import QuoteTimer from "./quote-timer";
 
 export default function ConfirmQuote({
 	uuid,
@@ -35,15 +35,7 @@ export default function ConfirmQuote({
 				</Details.Row>
 				<Details.Row
 					label="Time left to pay"
-					value={
-						<Timer
-							id={uuid}
-							ms={getCountdown(expiryDate)}
-							// forces a page reload when the timer countdown finishes,
-							// if the quote is expired, the location will be redirected to the expired page
-							onTimeEllapsed={() => globalThis.location.reload()}
-						/>
-					}
+					value={<QuoteTimer uuid={uuid} expiryDate={expiryDate} />}
 				/>
 			</Details>
 		</Panel>

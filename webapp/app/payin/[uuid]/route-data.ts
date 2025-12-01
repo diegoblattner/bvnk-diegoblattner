@@ -1,6 +1,7 @@
 "use server";
 import { notFound, redirect } from "next/navigation";
 import { getPayInQuote } from "@/apis/pay";
+import { getCountdown } from "@/lib";
 
 type Route = "get" | "confirm" | "expired";
 
@@ -21,25 +22,27 @@ export async function getPayInQuoteForRoute(
 		return notFound();
 	}
 
-	if (data.status === "EXPIRED" && currentRoute !== "expired") {
-		return redirect(`/payin/${uuid}/expired`);
+	const remainingTime = getCountdown(data.expiryDate);
+
+	if (data.status === "EXPIRED" || remainingTime <= 0) {
+		if (currentRoute === "expired") {
+			return data;
+		} else {
+			return redirect(`/payin/${uuid}/expired`);
+		}
 	}
 
-	if (
-		data.status === "PENDING" &&
-		data.quoteStatus === "TEMPLATE" &&
-		currentRoute !== "get"
-	) {
+	if (data.quoteStatus === "ACCEPTED") {
+		if (currentRoute === "confirm") {
+			return data;
+		} else {
+			return redirect(`/payin/${uuid}/confirm`);
+		}
+	}
+
+	if (currentRoute === "get") {
+		return data;
+	} else {
 		return redirect(`/payin/${uuid}`);
 	}
-
-	if (
-		data.status === "PENDING" &&
-		data.quoteStatus === "ACCEPTED" &&
-		currentRoute !== "confirm"
-	) {
-		return redirect(`/payin/${uuid}/confirm`);
-	}
-
-	return data;
 }
